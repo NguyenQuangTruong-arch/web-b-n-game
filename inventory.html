@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhom 4 - Kho Đồ</title>
+    <style>
+        /* --- CSS GIỮ NGUYÊN --- */
+        body { background-color: #1b2838; color: #c6d4df; font-family: "Arial", sans-serif; margin: 0; padding: 0; font-size: 13px; }
+        .container { width: 940px; margin: 0 auto; }
+        .breadcrumbs { font-size: 12px; color: #8f98a0; margin-bottom: 15px; }
+        button { cursor: pointer; font-family: "Arial", sans-serif; }
+
+        /* HEADER */
+        .nhom4-header { background-color: #171a21; height: 104px; margin-bottom: 20px; }
+        .header-inner { display: flex; align-items: center; height: 100%; padding: 0 20px; }
+        .logo { font-size: 28px; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 2px; margin-right: 40px; text-shadow: 0 0 5px rgba(255,255,255,0.2); }
+        .nav-link { color: #b8b6b4; font-size: 14px; font-weight: bold; margin-right: 15px; text-decoration: none; text-transform: uppercase; }
+        .nav-link:hover { color: #fff; }
+        .nav-link.active { color: #1a9fff; border-bottom: 3px solid #1a9fff; padding-bottom: 5px; }
+        .header-wallet { color: #66c0f4; font-size: 14px; font-weight: bold; margin-left: auto; padding: 5px 10px; background: rgba(0,0,0,0.4); border-radius: 2px; border: 1px solid #3a4b5d; }
+
+        /* INVENTORY STYLES */
+        .inventory-container { background: rgba(0, 0, 0, 0.2); padding: 30px; border-radius: 5px; min-height: 600px; }
+        .inventory-header { font-size: 24px; margin-bottom: 20px; color: #fff; text-transform: uppercase; border-bottom: 1px solid #3a4b5d; padding-bottom: 10px;}
+        .inventory-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        
+        .game-card {
+            background: #2a475e; padding: 15px; border-radius: 4px; transition: 0.2s;
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .game-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        
+        /* CSS cho ảnh */
+        .game-img { width: 100%; height: 140px; object-fit: cover; border-radius: 2px; margin-bottom: 10px; background: #000; }
+        .game-name { font-size: 18px; font-weight: bold; color: #fff; margin-bottom: 5px; }
+        .game-status { font-size: 12px; color: #66c0f4; margin-bottom: 15px; }
+
+        /* Nút PLAY */
+        .btn-play {
+            background: linear-gradient(to bottom, #a4d007 5%, #536904 95%);
+            color: #fff; 
+            padding: 12px; 
+            width: 100%; 
+            border: none; 
+            font-weight: bold; 
+            font-size: 16px; 
+            border-radius: 2px; 
+            cursor: pointer;
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.3);
+        }
+        .btn-play:hover { 
+            background: linear-gradient(to bottom, #b6e608 5%, #6b8705 95%);
+        }
+        
+        .footer { margin-top: 50px; border-top: 1px solid #363c44; padding: 20px 0; color: #8f98a0; font-size: 12px; }
+    </style>
+</head>
+<body>
+
+    <div class="nhom4-header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">NHOM 4</a>
+            <div class="nav">
+                <a href="index.html" class="nav-link">CỬA HÀNG</a>
+                <a href="inventory.html" class="nav-link active">KHO ĐỒ</a>
+                <a href="support.html" class="nav-link">HỖ TRỢ</a>
+            </div>
+            <div style="margin-left: auto; display: flex; align-items: center;">
+                <div class="header-wallet" id="wallet-display">Số dư: ...</div>
+                <div style="display: flex; align-items: center; color: #c6d4df; margin-left: 15px;">
+                    ThanhVien_Nhom4 
+                    <img src="https://avatars.fastly.steamstatic.com/3f5e9daea59216d7fe13df4e031d3537580e5e21.jpg" style="width: 34px; border-radius: 3px; margin-left: 10px; border: 1px solid #66c0f4;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="breadcrumbs">Tài khoản > Kho đồ</div>
+        <div class="inventory-container">
+            <div class="inventory-header">Thư viện game của bạn</div>
+            <div id="inventory-grid" class="inventory-grid"></div>
+            
+            </div>
+        <div class="footer">
+            <div style="margin-bottom: 10px; font-size: 20px; color: #8f98a0; font-weight: bold;">NHOM 4</div>
+            <div>© 2025 Nhom 4 Corporation. Bản quyền demo thuộc về Nhóm 4.</div>
+        </div>
+    </div>
+
+    <script>
+        // 1. Lấy dữ liệu hiện tại
+        let ownedGames = JSON.parse(localStorage.getItem('nhom4_ownedGames')) || [];
+        let balance = localStorage.getItem('nhom4_balance') || 500000;
+        document.getElementById('wallet-display').innerText = "Số dư: " + parseInt(balance).toLocaleString('vi-VN') + '₫';
+
+        const grid = document.getElementById('inventory-grid');
+
+        // --- LOGIC THÊM 5 GAME TỰ ĐỘNG ---
+        const game1 = { name: "Road Crosser", image: "Picture1.png", date: "18/12/2025" };
+        const game2 = { name: "Dungeon 01", image: "Picture2.png", date: "18/12/2025" };
+        const game3 = { name: "Né vật cản", image: "Picture3.png", date: "18/12/2025" };
+        const game4 = { name: "RUNNER", image: "597178576_908816731494607_6074174621503590208_n.png", date: "18/12/2025" };
+        const game5 = { name: "Bounce Classic", image: "Picture5.png", date: "18/12/2025" };
+
+        let dataChanged = false;
+
+        function addGameIfMissing(newGame) {
+            if (!ownedGames.some(game => game.name === newGame.name)) {
+                ownedGames.unshift(newGame);
+                dataChanged = true;
+            }
+        }
+
+        addGameIfMissing(game5); // Bounce Classic
+        addGameIfMissing(game4); // RUNNER
+        addGameIfMissing(game3); // Né vật cản
+        addGameIfMissing(game2); // Dungeon 01
+        addGameIfMissing(game1); // Road Crosser
+
+        if (dataChanged) {
+            localStorage.setItem('nhom4_ownedGames', JSON.stringify(ownedGames));
+        }
+        // --------------------------------
+
+        function renderInventory() {
+            if (ownedGames.length === 0) {
+                grid.innerHTML = `<div style="grid-column: span 3; text-align: center; padding: 50px; color: #8f98a0;">Kho đồ trống.</div>`;
+            } else {
+                grid.innerHTML = "";
+                ownedGames.forEach((game, index) => {
+                    grid.innerHTML += `
+                        <div class="game-card">
+                            <div>
+                                <img src="${game.image}" class="game-img" onerror="this.src='https://via.placeholder.com/200x120?text=Loi+Anh'">
+                                <div class="game-name">${game.name}</div>
+                                <div class="game-status">Sở hữu ngày: ${game.date || 'Hôm nay'}</div>
+                            </div>
+                            <div>
+                                <button class="btn-play" id="btn-play-${index}" onclick="playGame(${index}, '${game.name}')">▶ PLAY</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        function playGame(index, gameName) {
+            const btn = document.getElementById(`btn-play-${index}`);
+            btn.innerText = "🚀 ĐANG KHỞI ĐỘNG...";
+            btn.disabled = true;
+            btn.style.background = "#3d4450"; 
+            
+            setTimeout(() => {
+                btn.innerText = "▶ PLAY";
+                btn.style.background = "linear-gradient(to bottom, #a4d007 5%, #536904 95%)";
+                btn.disabled = false;
+                alert("Đang vào game " + gameName + "... Chiến thôi! 🎮"); 
+            }, 2000);
+        }
+        
+        renderInventory();
+    </script>
+</body>
+</html>

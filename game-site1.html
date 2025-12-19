@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nhom 4 - Game 1</title>
+    <style>
+      /* --- BỘ CSS STEAM "TỰ CHẾ" --- */
+      body {
+        background-color: #1b2838;
+        color: #c6d4df;
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        font-size: 13px;
+      }
+      a {
+        text-decoration: none;
+        color: #fff;
+      }
+      button {
+        cursor: pointer;
+        font-family: "Arial", sans-serif;
+      }
+
+      .container {
+        width: 940px;
+        margin: 0 auto;
+      }
+
+      /* HEADER */
+      .nhom4-header {
+        background-color: #171a21;
+        height: 104px;
+        margin-bottom: 20px;
+      }
+      .header-inner {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        padding: 0 20px;
+      }
+      .logo {
+        font-size: 28px;
+        font-weight: 900;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-right: 40px;
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+      }
+      .nav-link {
+        color: #b8b6b4;
+        font-size: 14px;
+        font-weight: bold;
+        margin-right: 15px;
+        text-transform: uppercase;
+      }
+      .nav-link:hover {
+        color: #fff;
+      }
+      .nav-link.active {
+        color: #1a9fff;
+        border-bottom: 3px solid #1a9fff;
+        padding-bottom: 5px;
+      }
+
+      /* CÁC COMPONENT HEADER */
+      .header-cart-btn {
+        background-color: #5c7e10;
+        color: #fff;
+        padding: 6px 12px;
+        font-size: 12px;
+        border-radius: 2px;
+        margin-right: 15px;
+        font-weight: bold;
+        display: inline-block;
+        transition: 0.2s;
+        cursor: pointer;
+      }
+      .header-cart-btn:hover {
+        background-color: #76a113;
+      }
+
+      .header-wallet {
+        color: #66c0f4;
+        font-size: 14px;
+        font-weight: bold;
+        margin-right: 15px;
+        padding: 5px 10px;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 2px;
+        border: 1px solid #3a4b5d;
+        cursor: pointer;
+      }
+
+      /* GIAO DIỆN STORE (MAIN) */
+      .breadcrumbs {
+        font-size: 12px;
+        color: #8f98a0;
+        margin-bottom: 15px;
+      }
+      .game-title {
+        font-family: "Arial", sans-serif;
+        font-size: 26px;
+        color: #fff;
+        margin-bottom: 10px;
+      }
+      .main-showcase {
+        display: flex;
+        background: rgba(0, 0, 0, 0.2);
+        margin-bottom: 20px;
+      }
+      .left-col {
+        width: 600px;
+        margin-right: 15px;
+      }
+      .video-wrapper img {
+        width: 100%;
+        display: block;
+        box-shadow: 0 0 10px #000;
+      }
+      .right-col {
+        flex: 1;
+        padding-right: 10px;
+      }
+      .header-img {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+      .desc {
+        font-size: 13px;
+        line-height: 1.5;
+        margin-bottom: 15px;
+        display: -webkit-box;
+        line-clamp: 7;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .review-row {
+        background: #2a475e;
+        padding: 8px;
+        margin-bottom: 5px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+      }
+      .review-score {
+        color: #66c0f4;
+        font-weight: bold;
+      }
+
+      /* KHU VỰC MUA HÀNG & SAU KHI MUA */
+      .purchase-area {
+        background: linear-gradient(
+          to right,
+          rgba(47, 54, 61, 0.9),
+          rgba(21, 22, 26, 0.9)
+        );
+        padding: 20px;
+        margin-bottom: 8px;
+        border-radius: 4px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .purchase-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+        margin: 0;
+      }
+
+      /* Box giá tiền và nút mua */
+      .price-btn-box {
+        display: flex;
+        align-items: center;
+        background: #000;
+        padding: 2px;
+        border-radius: 2px;
+      }
+      .price {
+        padding: 0 10px;
+        color: #dbe2e6;
+        font-size: 13px;
+      }
+      .btn-add {
+        background: #5c7e10;
+        color: #d2efa9;
+        padding: 8px 20px;
+        font-size: 15px;
+        border-radius: 2px;
+        border: none;
+        transition: 0.2s;
+        text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);
+      }
+      .btn-add:hover {
+        background: #76a113;
+        color: #fff;
+      }
+
+      /* Box nút sau khi mua (Ẩn mặc định) */
+      .owned-actions {
+        display: none;
+        gap: 10px;
+      }
+      .btn-download {
+        background: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 14px;
+        border: none;
+        border-radius: 2px;
+        font-weight: bold;
+      }
+      .btn-download:hover {
+        background: #0056b3;
+      }
+      .btn-inventory {
+        background: #3d4450;
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 14px;
+        border: none;
+        border-radius: 2px;
+        font-weight: bold;
+      }
+      .btn-inventory:hover {
+        background: #4f5866;
+      }
+
+      .sys-req {
+        font-size: 12px;
+        color: #acb2b8;
+        margin-top: 30px;
+      }
+      .sys-req ul {
+        list-style: none;
+        padding: 0;
+      }
+      .sys-req li {
+        margin-bottom: 4px;
+      }
+      .sys-req strong {
+        color: #fff;
+      }
+
+      .footer {
+        margin-top: 50px;
+        border-top: 1px solid #363c44;
+        padding: 20px 0;
+        color: #8f98a0;
+        font-size: 12px;
+      }
+
+      /* --- GIAO DIỆN NẠP TIỀN --- */
+      .deposit-container {
+        background: rgba(0, 0, 0, 0.2);
+        padding: 30px;
+        border-radius: 5px;
+        min-height: 500px;
+      }
+      .deposit-header {
+        font-size: 24px;
+        margin-bottom: 30px;
+        color: #fff;
+        text-transform: uppercase;
+        border-bottom: 1px solid #3a4b5d;
+        padding-bottom: 10px;
+      }
+      .payment-methods {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+      .payment-card {
+        flex: 1;
+        background: #2a475e;
+        padding: 20px;
+        border-radius: 4px;
+        text-align: center;
+        border: 2px solid transparent;
+        transition: 0.3s;
+        cursor: pointer;
+        opacity: 0.7;
+      }
+      .payment-card:hover {
+        opacity: 1;
+        transform: translateY(-2px);
+      }
+      .payment-card.active {
+        border-color: #66c0f4;
+        opacity: 1;
+        background: #335670;
+      }
+      .payment-icon {
+        font-size: 30px;
+        margin-bottom: 10px;
+        display: block;
+      }
+      .amount-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin-bottom: 30px;
+      }
+      .amount-btn {
+        background: #3d4450;
+        color: #fff;
+        padding: 15px;
+        border: 1px solid #5c7e10;
+        border-radius: 2px;
+        font-weight: bold;
+        text-align: center;
+        transition: 0.2s;
+      }
+      .amount-btn:hover {
+        background: #5c7e10;
+      }
+      .action-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+        border-top: 1px solid #3a4b5d;
+        padding-top: 20px;
+      }
+      .btn-back {
+        background: transparent;
+        color: #8f98a0;
+        border: 1px solid #8f98a0;
+        padding: 10px 20px;
+      }
+
+      /* --- MODAL --- */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+      .modal-content {
+        background: linear-gradient(to bottom, #2a475e, #1b2838);
+        width: 600px;
+        padding: 2px;
+        border-radius: 4px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+      }
+      .modal-inner {
+        background: #1b2838;
+        padding: 20px;
+        position: relative;
+      }
+      .close-x {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 20px;
+        color: #8f98a0;
+        cursor: pointer;
+      }
+      .cart-list {
+        text-align: left;
+        margin: 20px 0;
+        max-height: 200px;
+        overflow-y: auto;
+        background: rgba(0, 0, 0, 0.2);
+        padding: 10px;
+      }
+      .cart-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid #3a4b5d;
+        color: #c6d4df;
+      }
+      .cart-total-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+        margin-top: 20px;
+        padding-top: 10px;
+        border-top: 1px solid #66c0f4;
+      }
+      .btn-checkout {
+        background: #5c7e10;
+        color: #fff;
+        width: 100%;
+        padding: 15px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        border: none;
+        border-radius: 3px;
+        margin-top: 20px;
+      }
+      .btn-checkout:hover {
+        background: #76a113;
+      }
+      #added-popup .modal-content {
+        width: 400px;
+        text-align: center;
+      }
+      #added-popup button {
+        margin: 5px;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 2px;
+        font-weight: bold;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nhom4-header">
+      <div class="container header-inner">
+        <a href="javascript:switchPage('store')" class="logo">NHOM 4</a>
+        <div class="nav">
+          <a
+            href="javascript:switchPage('store')"
+            class="nav-link active"
+            id="nav-store"
+            >CỬA HÀNG</a
+          >
+          <a href="#" class="nav-link">KHO ĐỒ</a>
+          <a href="#" class="nav-link">HỖ TRỢ</a>
+        </div>
+
+        <div style="margin-left: auto; display: flex; align-items: center">
+          <div
+            class="header-cart-btn"
+            id="cart-count-btn"
+            onclick="openViewCart()"
+          >
+            Giỏ hàng (0)
+          </div>
+          <div class="header-wallet" id="wallet-display">Số dư: ...</div>
+          <div style="display: flex; align-items: center; color: #c6d4df">
+            ThanhVien_Nhom4
+            <img
+              src="Đua xe đường phố/Picture2.png"
+              style="
+                width: 34px;
+                border-radius: 3px;
+                margin-left: 10px;
+                border: 1px solid #66c0f4;
+              "
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div id="page-store">
+        <div class="breadcrumbs">Tất cả trò chơi > Né vật cản!</div>
+        <div class="game-title">Né vật cản!</div>
+
+        <div class="main-showcase">
+          <div class="left-col">
+            <div class="video-wrapper">
+              <img src="Đua xe đường phố/Picture2.png" alt="Trailer" />
+            </div>
+          </div>
+          <div class="right-col">
+            <img class="header-img" src="Đua xe đường phố/1.png" />
+            <div class="desc">
+              Đạp ga. Không luật lệ. Không giới hạn. Hãy sẵn sàng cho những cuộc
+              đua sinh tử nơi tốc độ là thứ duy nhất tồn tại.
+            </div>
+            <div class="review-row">
+              <span>Đánh giá chung:</span
+              ><span class="review-score">Rất tích cực (4,688)</span>
+            </div>
+            <div class="review-row">
+              <span>Ngày phát hành:</span><span>13 Thg11, 2025</span>
+            </div>
+            <div class="review-row">
+              <span>Nhà phát triển:</span
+              ><a href="#" style="color: #fff; text-decoration: underline"
+                >Nhóm 4</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="purchase-area" id="area-standard">
+          <h1 class="purchase-title">Né vật cản!</h1>
+
+          <div class="price-btn-box" id="buy-box-standard">
+            <div class="price">829.343₫</div>
+            <button
+              class="btn-add"
+              onclick="addToCart('Đua xe đường phố<', 829343)"
+            >
+              Thêm vào giỏ
+            </button>
+          </div>
+
+          <div class="owned-actions" id="owned-box-standard">
+            <button
+              class="btn-download"
+              onclick="alert('Đang tải Né vật cản!...')"
+            >
+              TẢI GAME
+            </button>
+            <button
+              class="btn-inventory"
+              onclick="alert('Chuyển đến Kho đồ...')"
+            >
+              XEM KHO ĐỒ
+            </button>
+          </div>
+        </div>
+
+        <div class="purchase-area" id="area-deluxe">
+          <h1 class="purchase-title">Né vật cản! - Deluxe Edition</h1>
+
+          <div class="price-btn-box" id="buy-box-deluxe">
+            <div class="price">1.000.000₫</div>
+            <button class="btn-add" onclick="addToCart('Né vật cản!', 1000000)">
+              Thêm vào giỏ
+            </button>
+          </div>
+
+          <div class="owned-actions" id="owned-box-deluxe">
+            <button
+              class="btn-download"
+              onclick="alert('Đang tải Né vật cản! - Deluxe Edition...')"
+            >
+              TẢI GAME
+            </button>
+            <button
+              class="btn-inventory"
+              onclick="alert('Chuyển đến Kho đồ...')"
+            >
+              XEM KHO ĐỒ
+            </button>
+          </div>
+        </div>
+
+        <div class="sys-req">
+          <h2
+            style="
+              border-bottom: 1px solid #fff;
+              color: #fff;
+              font-weight: normal;
+              padding-bottom: 5px;
+              font-size: 14px;
+            "
+          >
+            YÊU CẦU HỆ THỐNG
+          </h2>
+          <div style="display: flex; gap: 40px">
+            <div>
+              <strong>TỐI THIỂU:</strong>
+              <ul>
+                <li>HĐH: Windows XP 32bit</li>
+                <li>Bộ nhớ: 1 GB RAM</li>
+              </ul>
+            </div>
+            <div>
+              <strong>KHUYẾN NGHỊ:</strong>
+              <ul>
+                <li>HĐH: Windows 7 32bit</li>
+                <li>Bộ nhớ: 2 GB RAM</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="page-deposit" style="display: none">
+        <div class="breadcrumbs">Tài khoản > Ví của tôi > Nạp tiền</div>
+        <div class="deposit-container">
+          <div class="deposit-header">Cổng Thanh Toán Nhom 4</div>
+          <div style="color: #8f98a0; margin-bottom: 10px">
+            Bước 1: Chọn phương thức thanh toán
+          </div>
+          <div class="payment-methods">
+            <div class="payment-card active" onclick="selectPayment(this)">
+              <span class="payment-icon" style="color: #a50064">M</span
+              ><strong>MOMO E-Wallet</strong>
+            </div>
+            <div class="payment-card" onclick="selectPayment(this)">
+              <span class="payment-icon" style="color: #4caf50">🏦</span
+              ><strong>Ngân Hàng (QR)</strong>
+            </div>
+            <div class="payment-card" onclick="selectPayment(this)">
+              <span class="payment-icon" style="color: #ff9800">💳</span
+              ><strong>VISA / Master</strong>
+            </div>
+          </div>
+          <div style="color: #8f98a0; margin-bottom: 10px">
+            Bước 2: Chọn số tiền cần nạp
+          </div>
+          <div class="amount-grid">
+            <button class="amount-btn" onclick="processDeposit(100000)">
+              100.000₫
+            </button>
+            <button class="amount-btn" onclick="processDeposit(200000)">
+              200.000₫
+            </button>
+            <button class="amount-btn" onclick="processDeposit(500000)">
+              500.000₫
+            </button>
+            <button class="amount-btn" onclick="processDeposit(1000000)">
+              1.000.000₫
+            </button>
+            <button class="amount-btn" onclick="processDeposit(2000000)">
+              2.000.000₫
+            </button>
+            <button class="amount-btn" onclick="processDeposit(5000000)">
+              5.000.000₫
+            </button>
+          </div>
+          <div class="action-row">
+            <button class="btn-back" onclick="switchPage('store')">
+              Quay lại Cửa hàng
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div
+          style="
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #8f98a0;
+            font-weight: bold;
+          "
+        >
+          NHOM 4
+        </div>
+        <div>© 2025 Nhom 4 Corporation. Bản quyền demo thuộc về Nhóm 4.</div>
+      </div>
+    </div>
+
+    <div id="added-popup" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-inner">
+          <div class="modal-header" id="popup-header">
+            Đã thêm vào giỏ hàng!
+          </div>
+          <div class="modal-text" id="popup-item-name">...</div>
+          <div style="display: flex; justify-content: center">
+            <button
+              style="background: #3d4450; color: #fff"
+              onclick="closeAddedPopup()"
+            >
+              Tiếp tục
+            </button>
+            <button
+              style="background: #5c7e10; color: #fff"
+              onclick="openViewCart()"
+            >
+              Xem giỏ
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="cart-list-popup" class="modal-overlay">
+      <div class="modal-content" style="width: 600px">
+        <div class="modal-inner">
+          <div class="close-x" onclick="closeCartList()">×</div>
+          <div class="modal-header">Giỏ hàng của bạn</div>
+          <div class="cart-list" id="cart-items-container"></div>
+          <div class="cart-total-row">
+            <span>Tổng cộng:</span><span id="cart-total-price">0₫</span>
+          </div>
+          <button class="btn-checkout" onclick="checkout()">
+            THANH TOÁN NGAY
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let cartItems = [];
+      let ownedGames = []; // Danh sách game đã mua
+      let userBalance = 500000; // Tiền ít để test chức năng nạp
+
+      function formatMoney(amount) {
+        return amount.toLocaleString("vi-VN") + "₫";
+      }
+      function updateBalanceDisplay() {
+        document.getElementById("wallet-display").innerText =
+          "Số dư: " + formatMoney(userBalance);
+      }
+
+      // Check sở hữu game để đổi nút
+      function checkOwnership() {
+        if (ownedGames.includes("Game 1")) {
+          document.getElementById("buy-box-standard").style.display = "none";
+          document.getElementById("owned-box-standard").style.display = "flex";
+        }
+        if (ownedGames.includes("Game 1 Deluxe Edition")) {
+          document.getElementById("buy-box-deluxe").style.display = "none";
+          document.getElementById("owned-box-deluxe").style.display = "flex";
+        }
+      }
+
+      updateBalanceDisplay();
+      checkOwnership(); // Chạy lúc đầu (dù chưa có gì)
+
+      // --- SPA LOGIC ---
+      function switchPage(page) {
+        document.getElementById("page-store").style.display =
+          page === "store" ? "block" : "none";
+        document.getElementById("page-deposit").style.display =
+          page === "deposit" ? "block" : "none";
+        if (page === "store") {
+          document.getElementById("nav-store").classList.add("active");
+          checkOwnership(); // Update lại giao diện khi quay về
+        } else {
+          document.getElementById("nav-store").classList.remove("active");
+          window.scrollTo(0, 0);
+        }
+      }
+
+      // --- GIỎ HÀNG ---
+      function addToCart(itemName, itemPrice) {
+        // Check đã mua chưa
+        if (ownedGames.includes(itemName)) {
+          alert("Bạn đã sở hữu game này rồi! Vào thư viện tải về chơi thôi.");
+          return;
+        }
+        if (!cartItems.some((item) => item.name === itemName)) {
+          cartItems.push({ name: itemName, price: itemPrice });
+          document.getElementById("popup-item-name").innerText =
+            "Đã thêm: " + itemName;
+          updateCartCount();
+          document.getElementById("added-popup").style.display = "flex";
+        } else {
+          alert("Đã có trong giỏ rồi!");
+        }
+      }
+      function updateCartCount() {
+        document.getElementById("cart-count-btn").innerText =
+          "Giỏ hàng (" + cartItems.length + ")";
+      }
+      function closeAddedPopup() {
+        document.getElementById("added-popup").style.display = "none";
+      }
+
+      // --- THANH TOÁN ---
+      function openViewCart() {
+        closeAddedPopup();
+        const list = document.getElementById("cart-items-container");
+        list.innerHTML = "";
+        let total = 0;
+        if (cartItems.length === 0)
+          list.innerHTML =
+            "<div style='text-align:center; color:#8f98a0;'>Trống.</div>";
+        else {
+          cartItems.forEach((item) => {
+            total += item.price;
+            list.innerHTML += `<div class="cart-item"><span>${
+              item.name
+            }</span><span style="color:#66c0f4">${formatMoney(
+              item.price
+            )}</span></div>`;
+          });
+        }
+        document.getElementById("cart-total-price").innerText =
+          formatMoney(total);
+        document.getElementById("cart-list-popup").style.display = "flex";
+      }
+      function closeCartList() {
+        document.getElementById("cart-list-popup").style.display = "none";
+      }
+
+      function checkout() {
+        if (cartItems.length === 0) return alert("Giỏ hàng trống!");
+        let total = cartItems.reduce((sum, item) => sum + item.price, 0);
+
+        if (userBalance >= total) {
+          userBalance -= total;
+          alert("Thanh toán thành công! Trừ " + formatMoney(total));
+
+          // Chuyển từ giỏ hàng sang đã sở hữu
+          cartItems.forEach((item) => {
+            ownedGames.push(item.name);
+          });
+
+          cartItems = []; // Xóa giỏ
+          updateCartCount();
+          updateBalanceDisplay();
+          closeCartList();
+          checkOwnership(); // Cập nhật giao diện nút mua
+        } else {
+          let missing = total - userBalance;
+          if (
+            confirm(
+              "Số dư không đủ! Bạn thiếu " +
+                formatMoney(missing) +
+                ".\nChuyển đến trang nạp tiền ngay?"
+            )
+          ) {
+            closeCartList();
+            switchPage("deposit");
+          }
+        }
+      }
+
+      // --- NẠP TIỀN ---
+      function selectPayment(el) {
+        document
+          .querySelectorAll(".payment-card")
+          .forEach((c) => c.classList.remove("active"));
+        el.classList.add("active");
+      }
+      function processDeposit(amount) {
+        if (confirm("Xác nhận nạp " + formatMoney(amount) + "?")) {
+          setTimeout(() => {
+            userBalance += amount;
+            alert("Nạp thành công! Số dư mới: " + formatMoney(userBalance));
+            updateBalanceDisplay();
+            switchPage("store");
+          }, 500);
+        }
+      }
+    </script>
+  </body>
+</html>

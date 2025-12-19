@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhom 4 - Hỗ Trợ Khách Hàng</title>
+    <style>
+        /* --- BỘ CSS STEAM "TỰ CHẾ" (Cơ bản) --- */
+        body {
+            background-color: #1b2838;
+            color: #c6d4df;
+            font-family: "Arial", sans-serif;
+            margin: 0;
+            padding: 0;
+            font-size: 13px;
+        }
+        a { text-decoration: none; color: #fff; }
+        button { cursor: pointer; font-family: "Arial", sans-serif; }
+        .container { width: 940px; margin: 0 auto; }
+        .breadcrumbs { font-size: 12px; color: #8f98a0; margin-bottom: 15px; }
+        
+        /* HEADER - Lấy lại từ file gốc */
+        .nhom4-header { background-color: #171a21; height: 104px; margin-bottom: 20px; }
+        .header-inner { display: flex; align-items: center; height: 100%; padding: 0 20px; }
+        .logo { font-size: 28px; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 2px; margin-right: 40px; text-shadow: 0 0 5px rgba(255,255,255,0.2); }
+        .nav-link { color: #b8b6b4; font-size: 14px; font-weight: bold; margin-right: 15px; text-transform: uppercase; }
+        .nav-link:hover { color: #fff; }
+        .nav-link.active { color: #1a9fff; border-bottom: 3px solid #1a9fff; padding-bottom: 5px; }
+
+        .header-cart-btn { background-color: #5c7e10; color: #fff; padding: 6px 12px; font-size: 12px; border-radius: 2px; margin-right: 15px; font-weight: bold; display: inline-block; transition: 0.2s; cursor: pointer; }
+        .header-wallet { color: #66c0f4; font-size: 14px; font-weight: bold; margin-right: 15px; padding: 5px 10px; background: rgba(0,0,0,0.4); border-radius: 2px; border: 1px solid #3a4b5d; cursor: pointer; }
+        
+        .footer { margin-top: 50px; border-top: 1px solid #363c44; padding: 20px 0; color: #8f98a0; font-size: 12px; }
+
+        /* --- CSS RIÊNG CHO TRANG HỖ TRỢ --- */
+        .support-container { 
+            background: rgba(0, 0, 0, 0.2); 
+            padding: 30px; 
+            border-radius: 5px; 
+            min-height: 500px; 
+            text-align: center; /* Căn giữa nội dung chính */
+        }
+        .support-main-header { 
+            font-size: 28px; 
+            margin-bottom: 10px; 
+            color: #fff; 
+            text-transform: uppercase; 
+            border-bottom: 1px solid #3a4b5d; 
+            padding-bottom: 10px; 
+            font-weight: 300; 
+        }
+
+        /* KHUNG CHUNG CHO CÁC BOX THÔNG TIN */
+        .box-container {
+            background: #171a21; /* Nền tối hơn, nổi bật hơn */
+            border: 2px solid #3a4b5d;
+            border-radius: 4px;
+            padding: 30px 50px;
+            margin: 30px auto 20px auto;
+            max-width: 600px; /* Chiều rộng cố định */
+            text-align: left;
+        }
+        .box-title {
+            color: #66c0f4;
+            text-transform: uppercase;
+            font-size: 18px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #3a4b5d;
+            padding-bottom: 10px;
+        }
+
+        /* CONTACT BOX & MEMBER LIST STYLES */
+        .contact-row {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+        .contact-icon {
+            color: #66c0f4;
+            font-size: 18px;
+            margin-right: 15px;
+            width: 20px; 
+            padding-top: 2px;
+        }
+        .contact-info {
+            color: #fff;
+            font-weight: bold;
+        }
+        .member-list {
+            list-style: decimal; /* Đảm bảo hiển thị 1., 2.,... */
+            padding-left: 20px;
+            margin: 0;
+            line-height: 1.8;
+        }
+        .member-list li {
+            color: #c6d4df;
+            font-size: 14px;
+            margin-bottom: 8px; /* Tăng khoảng cách giữa các tên */
+        }
+        .member-link {
+            color: #1a9fff; /* Màu link nổi bật */
+            font-weight: bold;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+        .member-link:hover {
+            color: #66c0f4;
+        }
+
+        /* ABOUT US STYLES */
+        .video-embed {
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+        .video-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .about-text {
+            line-height: 1.6;
+            color: #c6d4df;
+            margin-top: 10px;
+        }
+
+        /* ACTION BUTTONS */
+        .action-row { display: flex; justify-content: center; margin-top: 40px;}
+        .btn-back { background: transparent; color: #8f98a0; border: 1px solid #8f98a0; padding: 10px 20px; margin-top: 20px; }
+        
+        .btn-contact-support {
+            background: #c74b4b; /* Màu đỏ nổi bật cho liên hệ */
+            color: #fff;
+            padding: 15px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+            max-width: 400px;
+            width: 100%;
+            margin-top: 15px;
+        }
+        .btn-contact-support:hover { background: #d45c5c; }
+    </style>
+</head>
+<body>
+
+    <div class="nhom4-header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">NHOM 4</a> 
+            <div class="nav">
+                <a href="index.html" class="nav-link" id="nav-store">CỬA HÀNG</a>
+                <a href="inventory.html" class="nav-link" id="nav-inventory">KHO ĐỒ</a> 
+                <a href="support.html" class="nav-link active">HỖ TRỢ</a> 
+            </div>
+            
+            <div style="margin-left: auto; display: flex; align-items: center;">
+                <div class="header-cart-btn">Giỏ hàng</div>
+                <div class="header-wallet" id="wallet-display">Số dư: 500.000₫</div> 
+                <div style="display: flex; align-items: center; color: #c6d4df;">
+                    ThanhVien_Nhom4 
+                    <img src="https://avatars.fastly.steamstatic.com/3f5e9daea59216d7fe13df4e031d3537580e5e21.jpg" style="width: 34px; border-radius: 3px; margin-left: 10px; border: 1px solid #66c0f4;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        
+        <div id="page-support">
+            <div class="breadcrumbs">Tài khoản > Hỗ trợ</div>
+            <div class="support-container">
+                <div class="support-main-header">Trung Tâm Hỗ Trợ Khách Hàng</div>
+                <div style="color: #8f98a0; font-size: 14px; margin-bottom: 20px;">
+                    Các thông tin chính thức về dự án và kênh liên hệ.
+                </div>
+                
+                <div class="box-container" style="max-width: 700px;">
+                    <h3 class="box-title">VỀ CHÚNG TÔI</h3>
+                    
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube.com/embed/jSfUOyMYgJw?autoplay=1&mute=1&playsinline=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+
+                    <p class="about-text">
+                        Chúng tôi là Nhóm 4 lớp CTTT6B thuộc Nhóm ngành máy tính và công nghệ thông tin trường đại học khoa học tự nhiên - ĐHQG TPHCM. Hãy xem video trên để hiểu rõ hơn về dự án và những gì chúng tôi đang xây dựng!
+                    </p>
+                </div>
+                <div class="box-container">
+                    <h3 class="box-title">DANH SÁCH THÀNH VIÊN</h3>
+                    
+                    <ul class="member-list">
+                        <li>
+                            <a href="https://vinhtruong151007.wixsite.com/main-page" target="_blank" class="member-link">
+                                Bùi Nguyễn Vĩnh Trường
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://kienvan1007.wixsite.com/portfolio-c" target="_blank" class="member-link">
+                                Trần Kiến Văn
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://nguyenthienvo2007.wixsite.com/my-site" target="_blank" class="member-link">
+                                Nguyễn Thiên Võ
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://sites.google.com/view/tris-profile/overall" target="_blank" class="member-link">
+                                Nguyễn Mạnh Trí
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://duongtrongtoan2701.wixsite.com/gioithieubanthan" target="_blank" class="member-link">
+                                Dương Trọng Toàn
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://nguyenquangtruong-arch.github.io/my-portfolio/" target="_blank" class="member-link">
+                                Nguyễn Quang Trường
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="box-container">
+                    <h3 class="box-title">KÊNH LIÊN HỆ CHÍNH THỨC</h3>
+                    
+                    <div class="contact-row">
+                        <span class="contact-icon">✉️</span>
+                        <span class="contact-info">EMAIL: <a href="mailto:NHOM4SUPPORT@GMAIL.COM" style="color: #fff;">NHOM4SUPPORT@GMAIL.COM</a></span>
+                    </div>
+
+                    <div class="contact-row">
+                        <span class="contact-icon">📞</span>
+                        <span class="contact-info">SĐT: 0868603316 (A.Trường)</span>
+                    </div>
+
+                    <div class="contact-row">
+                        <span class="contact-icon">📍</span>
+                        <span class="contact-info" style="line-height: 1.5;">ĐỊA CHỈ: Khu đô thị Đại học Quốc gia, Phường Linh Trung, Thành phố Thủ Đức, TP. Hồ Chí Minh</span>
+                    </div>
+                </div>
+
+                <div style="margin-top: 50px;">
+                    <h2 style="color: #fff; font-size: 20px; font-weight: normal;">Vẫn cần giúp đỡ?</h2>
+                    <p style="color: #8f98a0;">Gửi yêu cầu hỗ trợ trực tiếp và đội ngũ của chúng tôi sẽ phản hồi qua email.</p>
+                    <button class="btn-contact-support" onclick="alert('Đã gửi yêu cầu hỗ trợ. Chúng tôi sẽ phản hồi trong 24 giờ!')">
+                        TẠO YÊU CẦU HỖ TRỢ MỚI (TICKET)
+                    </button>
+                </div>
+                
+                <div class="action-row">
+                    <a href="index.html" class="btn-back">Quay lại Cửa hàng</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div style="margin-bottom: 10px; font-size: 20px; color: #8f98a0; font-weight: bold;">NHOM 4</div>
+            <div>© 2025 Nhom 4 Corporation. Bản quyền demo thuộc về Nhóm 4.</div>
+        </div>
+    </div>
+
+    <script></script>
+</body>
+</html>
