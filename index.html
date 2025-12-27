@@ -94,6 +94,32 @@
   <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet" />
 
   <style>
+    
+    .responsive_page_frame, 
+    .responsive_page_content, 
+    .responsive_page_template_content,
+    .page_content_ctn {
+        background-color: #1b2838 !important; /* The correct Steam Dark Blue */
+        background: #1b2838 !important;       /* Overrides any gradients */
+    }
+    .home_page_body_ctn,
+    .home_page_content,
+    .home_page_col_wrapper,
+    .home_ctn {
+        background-color: transparent !important;
+        background: transparent !important;
+    }
+    .footer {
+      border-top: 1px solid #363c44;
+      padding-left: 40%;
+      padding-top: 35px;
+      padding-bottom: 35px;
+      color: #8f98a0;
+      font-size: 12px;
+    }
+    .home_cluster_ctn home_ctn{
+      padding-top: 1000px;
+    }
     .nhom4-header {
       background-color: #171a21;
       height: 104px;
@@ -188,7 +214,7 @@
       position: relative;
       box-shadow: 0 0 10px 4px rgba(0, 0, 0, 0.5);
       background: #000;
-      padding: 0 40px;
+      padding: 100 40px;
       overflow: hidden;
       /* Ẩn phần thừa */
     }
@@ -420,6 +446,38 @@
       right: 0;
       border-radius: 5px 0 0 5px;
     }
+    .steam-category-row {
+      display: flex;
+      gap: 10px;
+    }
+    .steam-category-item {
+      flex: 1;
+      /* Deep Blue Gradient Base */
+      background: linear-gradient(135deg, #2a475e 0%, #1b2838 100%); 
+      padding: 20px;
+      text-align: center;
+      border-radius: 3px;
+      cursor: pointer;
+      
+      /* Text Styling */
+      color: #66c0f4; /* Steam's signature light blue text */
+      font-weight: 700;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      
+      /* 3D Effects */
+      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
+      transition: all 0.2s ease-in-out;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .steam-category-item:hover {
+      background: linear-gradient(90deg, #06BFFF 0%, #2D73FF 100%); /* The 'Steam Blue' glow */
+      color: #ffffff !important;
+      transform: translateY(-3px); /* Slightly lifts up */
+      box-shadow: 0 6px 20px rgba(6, 191, 255, 0.4); /* Glowing blue shadow */
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    } 
   </style>
 </head>
 
@@ -454,10 +512,10 @@
     <div class="responsive_page_content">
       <div class="nhom4-header">
         <div class="container header-inner">
-          <a href="javascript:switchPage('store')" class="logo">NHOM 4</a>
+          <a href="support site.html" class="logo">NHOM 4</a>
           <div class="nav">
-            <a href="javascript:switchPage('store')" class="nav-link active" id="nav-store">CỬA HÀNG</a>
-            <a href="#" class="nav-link">KHO ĐỒ</a>
+            <a href="index.html" class="nav-link active" id="nav-store">CỬA HÀNG</a>
+            <a href="inventory.html" class="nav-link">KHO ĐỒ</a>
             <a href="support site.html" target="_blank" class="nav-link">HỖ TRỢ</a>
           </div>
 
@@ -8845,103 +8903,25 @@
       </div>
       <!-- Footer -->
       <div id="footer_spacer" style class="small_footer"></div>
-      <!-- <div id="footer" role="contentinfo" class="small_footer">
-        <div class="footer_content">
-          <div id="footer_logo_steam">
-            <img src border="0" />
-          </div>
-          <div id="footer_text" data-panel='{"flow-children":"row"}'>
-            <div class="responsive_optin_link">
-              <div class="btn_medium btnv6_grey_black" role="link" onclick="Responsive_RequestMobileView()">
-                <span>View mobile website</span>
-              </div>
-            </div>
-          </div>
-
-          <div style="clear: left"></div>
-          <br />
-          <div class="valve_links" data-panel='{"flow-children":"row"}'>
-            <a href="http://www.valvesoftware.com/about" target="_blank" rel>About Us</a>
-            &nbsp; <span aria-hidden="true">|</span> &nbsp;<a href="http://www.valvesoftware.com" target="_blank"
-              rel>Jobs</a>
-            &nbsp; <span aria-hidden="true">|</span> &nbsp;<a
-              href="https://help.steampowered.com/en/?snr=1_44_44_">Support</a>
-            &nbsp; <span aria-hidden="true">|</span> &nbsp;<a
-              href="https://store.steampowered.com/digitalgiftcards/?snr=1_44_44_" target="_blank" rel>Gift Cards</a>
-            &nbsp; <span aria-hidden="true">|</span> &nbsp;<a
-              href="https://steamcommunity.com/linkfilter/?u=http%3A%2F%2Fwww.facebook.com%2FSteam" target="_blank"
-              rel=" noopener"><img src="https://store.fastly.steamstatic.com/public/images/ico/ico_facebook.png"
-                alt="Facebook: Steam" /></a>
-            &nbsp; <span aria-hidden="true">|</span> &nbsp;<a href="http://twitter.com/steam" target="_blank" rel><img
-                src="https://store.fastly.steamstatic.com/public/images/ico/ico_twitter.png" alt="X: @Steam" /></a>
-            &nbsp; <span aria-hidden="true">|</span> &nbsp;<a
-              href="https://steamcommunity.com/linkfilter/?u=https%3A%2F%2Fbsky.app%2Fprofile%2Fsteampowered.com"
-              target="_blank" rel=" noopener"><img
-                src="https://store.fastly.steamstatic.com/public/images/ico/ico_bsky.png"
-                alt="Bluesky: Steampowered" /></a>
-          </div>
-          <div class="extra_space"></div>
+      <div class="footer">
+        <div
+          style="
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #8f98a0;
+            font-weight: bold;
+          "
+        >
+          NHOM 4
         </div>
-      </div> -->
+        <div>© 2025 Nhom 4 Corporation. Bản quyền demo thuộc về Nhóm 4.</div>
+      </div>
       <script type="text/javascript">
         g_rgDelayedLoadImages = {
           home_tabs_autoload: true,
           home_tabs: true,
         };
       </script>
-      <div class="home_ctn home_content_ctn content_more">
-        <input id="content_seed" type="hidden" value />
-
-        <div id="content_more"></div>
-
-        <div id="content_out" class="page_content_ctn dark" style="display: none">
-          <div class="home_page_content">
-            <div class="more_content">
-              We're out of personalized recommendations for you right now
-            </div>
-            <div class="more_content_desc">
-              We can recommend some different titles once you've played more
-              games.
-            </div>
-            <br />
-            <div class="more_content">
-              Still looking for more? Check out a
-              <a href="https://store.steampowered.com/explore/random/">random game</a>.
-            </div>
-          </div>
-        </div>
-
-        <div id="content_none" class="page_content_ctn dark" style="display: none">
-          <div class="home_page_content">
-            <div class="more_content">
-              We don't have any recommendations to show you here.
-            </div>
-            <div class="more_content_desc">
-              This might be an error, or it might be that you don't have any
-              playtime on record.<br />You can hit refresh, or come back
-              once you've played a game.
-            </div>
-            <br />
-            <div class="more_content">
-              Perhaps you'd like to check out a
-              <a href="https://store.steampowered.com/explore/random/">random game</a>?
-            </div>
-          </div>
-        </div>
-
-        <div id="content_loading" class="page_content_ctn dark">
-          <div class="home_page_content more_content" id="LoadingContent">
-            <div class="LoadingWrapper">
-              <div class="LoadingThrobber">
-                <div class="Bar Bar1"></div>
-                <div class="Bar Bar2"></div>
-                <div class="Bar Bar3"></div>
-              </div>
-              <div class="LoadingText">Loading more content...</div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <script type="text/javascript">
         $J(function () {
